@@ -38,9 +38,11 @@ int main(void)
 	PORTB |= (1<<LED_BLUE) | (1<<LED_GREEN);
 	PORTB &= ~(1<<LED_RED);
 	
+	cli();
 	uart_init();
 	can_init(0,0);
 	fdevopen(uart_tx_char, NULL); 
+	sei();
 	//fdevopen will give a warning because it's expecting uart_tx_char to be of type int. 
 	//This is because uart_tx_char, in uart.c, is declared as void. 
 	
